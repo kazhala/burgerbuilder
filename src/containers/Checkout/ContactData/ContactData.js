@@ -17,7 +17,7 @@ class ContactData extends React.Component {
 
     orderHandler = (e) => {
         e.preventDefault();
-        console.log(this.props.totalPrice);
+        //console.log(this.props.totalPrice);
         this.setState({
             loading: true
         })
@@ -40,35 +40,35 @@ class ContactData extends React.Component {
             setTimeout(() => {
                 this.setState({
                     loading: false,
-                    purchasing: false
-                })
+                });
+                this.props.history.push('/');
             }, 1000);
         }).catch(error => {
             console.log(error);
             this.setState({
                 loading: false,
-                purchasing: false
             })
         });
     }
 
 
     render() {
-        let spinner = null;
+        let spinner = (
+            <form>
+                <input className={classes.Input} type="text" name="name" placeholder="Your name" />
+                <input className={classes.Input} type="email" name="email" placeholder="Your email" />
+                <input className={classes.Input} type="text" name="street" placeholder="Your address" />
+                <input className={classes.Input} type="text" name="postcode" placeholder="Your postcode" />
+                <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
+            </form>
+        );
         if (this.state.loading) {
             spinner = <Spinner />
         }
         return (
             <div className={classes.ContactData}>
-                {spinner}
                 <h4>Enter your contact data</h4>
-                <form>
-                    <input className={classes.Input} type="text" name="name" placeholder="Your name" />
-                    <input className={classes.Input} type="email" name="email" placeholder="Your email" />
-                    <input className={classes.Input} type="text" name="street" placeholder="Your address" />
-                    <input className={classes.Input} type="text" name="postcode" placeholder="Your postcode" />
-                    <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
-                </form>
+                {spinner}
             </div>
         )
     }
