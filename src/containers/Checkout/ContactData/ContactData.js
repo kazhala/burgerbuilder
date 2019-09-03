@@ -4,7 +4,6 @@ import classes from './ContactData.module.css';
 import axios from '../../../axios-orders';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
-import input from '../../../components/UI/Input/Input';
 
 class ContactData extends React.Component {
     state = {
