@@ -12,12 +12,10 @@ import * as actionTypes from '../../store/action';
 
 class BurgerBuilder extends React.Component {
     state = {
-        purchaseable: false,
         purchasing: false,
         loading: false,
         error: false,
     }
-
     /**
      componentDidMount() {
         axios.get('/ingredients.json').then(response => {
@@ -32,7 +30,6 @@ class BurgerBuilder extends React.Component {
         });
     }
      */
-
     purchaseHandler = () => {
         this.setState({
             purchasing: true,
@@ -55,21 +52,7 @@ class BurgerBuilder extends React.Component {
     }
 
     purchaseContinueHandler = () => {
-        //alert('You continue!');
-        /*
-        
-        */
-        const queryParam = [];
-        for (let i in this.state.ingredients) {
-            queryParam.push(encodeURI(i) + '=' + encodeURI(this.props.ings[i]));
-        }
-        //console.log(queryParam);
-        queryParam.push('price=' + this.props.price.toFixed(2));
-        const queryString = queryParam.join('&')
-        this.props.history.push({
-            pathname: '/checkout',
-            search: '?' + queryString
-        });
+        this.props.history.push('/checkout');
     }
 
     render() {
