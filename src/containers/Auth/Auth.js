@@ -5,6 +5,7 @@ import classes from './Auth.module.css';
 import * as actions from '../../store/actions/index';
 import { connect } from 'react-redux';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import { Redirect } from 'react-router-dom';
 
 class Auth extends React.Component {
     state = {
@@ -39,6 +40,17 @@ class Auth extends React.Component {
             }
         },
         isSignup: true,
+    }
+
+    componentDidMount() {
+        let sum = 0;
+        for (let ingredient in this.props.ingredients) {
+            sum = sum + this.props.ingredients[ingredient];
+        }
+        if (!this.props.buildingBurger || sum === 0) {
+            this.props.onSetRedirectPath('/');
+        }
+
     }
 
     checkValidity(value, rules) {
@@ -133,6 +145,7 @@ class Auth extends React.Component {
                     {form}
                     <Button btnType="Success">Submit</Button>
                 </form>
+                {this.props.isAuthenticated ? <Redirect to={this.props.authRedirectPath} /> : null}
                 <Button btnType="Danger" clicked={this.switchAuthModeHandler}>SWITCH TO {this.state.isSignup ? 'SIGNIN' : 'SIGNUP'}</Button>
             </div>
         );
@@ -142,13 +155,18 @@ class Auth extends React.Component {
 const mapStateToProps = state => {
     return {
         loading: state.auth.loading,
-        error: state.auth.error
+        error: state.auth.error,
+        isAuthenticated: state.auth.token !== null,
+        buildingBurger: state.burgerBuilder.building,
+        authRedirectPath: state.auth.authRedirectPath,
+        ingredients: state.burgerBuilder.ingredients
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup))
+        onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup)),
+        onSetRedirectPath: (path) => dispatch(actions.setAuthRedirectPath(path))
     }
 }
 
