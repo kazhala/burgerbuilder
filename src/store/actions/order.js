@@ -1,6 +1,5 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-orders';
-import { arrowFunctionExpression } from '@babel/types';
 
 export const purchaseBurgerSuccess = (id, orderData) => {
     return {
@@ -24,10 +23,10 @@ export const purchaseBurgerStart = () => {
 }
 
 
-export const purchaseBurger = (orderData) => {
+export const purchaseBurger = (orderData, token) => {
     return dispatch => {
         dispatch(purchaseBurgerStart());
-        axios.post('/orders.json', orderData).then(response => {
+        axios.post('/orders.json?auth=' + token, orderData).then(response => {
             dispatch(purchaseBurgerSuccess(response.data.name, orderData));
         }).catch(error => {
             dispatch(purchaseBurgerFailed(error));
@@ -61,10 +60,10 @@ export const fetchOrderStart = () => {
     }
 }
 
-export const fetchOrders = () => {
+export const fetchOrders = (token) => {
     return dispatch => {
         dispatch(fetchOrderStart());
-        axios.get('/orders.json').then(response => {
+        axios.get('/orders.json?auth=' + token).then(response => {
             const fetchedOrders = [];
             for (let key in response.data) {
                 fetchedOrders.push({
