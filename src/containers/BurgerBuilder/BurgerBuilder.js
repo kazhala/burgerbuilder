@@ -57,7 +57,7 @@ class BurgerBuilder extends React.Component {
         const disabledInfor = {
             ...this.props.ings,
         }
-        for (let key in disabledInfor) {
+        for (var key in disabledInfor) {
             disabledInfor[key] = disabledInfor[key] <= 0;
         }
         let orderSummary = null;

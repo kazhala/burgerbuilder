@@ -45,7 +45,7 @@ class Auth extends React.Component {
 
     componentDidMount() {
         let sum = 0;
-        for (let ingredient in this.props.ingredients) {
+        for (var ingredient in this.props.ingredients) {
             sum = sum + this.props.ingredients[ingredient];
         }
         if (!this.props.buildingBurger || sum === 0) {
@@ -84,7 +84,7 @@ class Auth extends React.Component {
 
     render() {
         const formElementArray = [];
-        for (let key in this.state.controls) {
+        for (var key in this.state.controls) {
             formElementArray.push({
                 id: key,
                 config: this.state.controls[key]

@@ -101,7 +101,7 @@ class ContactData extends React.Component {
     orderHandler = (e) => {
         e.preventDefault();
         const formData = {};
-        for (let formElementIdentifier in this.state.orderForm) {
+        for (var formElementIdentifier in this.state.orderForm) {
             formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value
         }
         const order = {
@@ -123,7 +123,7 @@ class ContactData extends React.Component {
             [inputIdentifier]: updatedFormElement
         });
         let formIsValid = true;
-        for (let inputIdentifiers in updatedOrderForm) {
+        for (var inputIdentifiers in updatedOrderForm) {
             formIsValid = updatedOrderForm[inputIdentifiers].valid && formIsValid === true;
         }
         this.setState({
@@ -136,7 +136,7 @@ class ContactData extends React.Component {
 
     render() {
         const formElementsArray = [];
-        for (let key in this.state.orderForm) {
+        for (var key in this.state.orderForm) {
             formElementsArray.push({
                 id: key,
                 config: this.state.orderForm[key],
