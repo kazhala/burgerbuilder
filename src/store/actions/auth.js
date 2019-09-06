@@ -23,19 +23,24 @@ export const authFailed = (error) => {
 }
 
 export const logOut = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('expirationTime');
-    localStorage.removeItem('userId');
+    //localStorage.removeItem('token');
+    //localStorage.removeItem('expirationTime');
+    //localStorage.removeItem('userId');
+    return {
+        type: actionTypes.AUTH_INITLOGOUT,
+    }
+}
+
+export const logOutSucceed = () => {
     return {
         type: actionTypes.AUTH_LOGOUT,
     }
 }
 
 export const checkAuthTimeout = (expirationTime) => {
-    return dispatch => {
-        setTimeout(() => {
-            dispatch(logOut());
-        }, expirationTime * 1000)
+    return {
+        type: actionTypes.AUTH_CHECK_TIMEOUT,
+        expirationTime: expirationTime,
     };
 }
 
@@ -53,7 +58,7 @@ export const auth = (email, password, isSignup) => {
         }
         axios.post(url, authData)
             .then(response => {
-                console.log(response);
+                //console.log(response);
                 const expirationData = new Date(new Date().getTime() + response.data.expiresIn * 1000);
                 localStorage.setItem('token', response.data.idToken);
                 localStorage.setItem('expirationTime', expirationData);
@@ -62,7 +67,7 @@ export const auth = (email, password, isSignup) => {
                 dispatch(checkAuthTimeout(response.data.expiresIn));
             })
             .catch(error => {
-                console.log(error);
+                //console.log(error);
                 dispatch(authFailed(error.response.data.error));
             })
     }
