@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import axios from 'axios';
+//import axios from 'axios';
 
 export const authStart = () => {
     return {
@@ -87,7 +87,7 @@ export const setAuthRedirectPath = path => {
 }
 
 export const authCheckState = () => {
-    return dispatch => {
+    /*return dispatch => {
         const token = localStorage.getItem('token');
         if (!token) {
             dispatch(logOut());
@@ -102,5 +102,8 @@ export const authCheckState = () => {
                 dispatch(logOut());
             }
         }
+    }*/
+    return {
+        type: actionTypes.AUTH_CHECK_STATE
     }
 }
