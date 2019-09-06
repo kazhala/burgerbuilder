@@ -45,7 +45,7 @@ export const checkAuthTimeout = (expirationTime) => {
 }
 
 export const auth = (email, password, isSignup) => {
-    return dispatch => {
+    /*return dispatch => {
         dispatch(authStart());
         const authData = {
             email: email,
@@ -70,6 +70,12 @@ export const auth = (email, password, isSignup) => {
                 //console.log(error);
                 dispatch(authFailed(error.response.data.error));
             })
+    }*/
+    return {
+        type: actionTypes.AUTH_USER,
+        email: email,
+        password: password,
+        isSignup: isSignup
     }
 }
 
