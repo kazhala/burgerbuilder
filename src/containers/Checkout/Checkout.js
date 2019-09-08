@@ -4,39 +4,37 @@ import { Route, Redirect } from 'react-router-dom';
 import ContactData from '../../containers/Checkout/ContactData/ContactData';
 import { connect } from 'react-redux';
 
-class Checkout extends React.Component {
+const Checkout = props => {
 
 
-    cancelHandler = () => {
-        this.props.history.push('/');
+    const cancelHandler = () => {
+        props.history.push('/');
     }
 
-    continueHandler = () => {
-        this.props.history.replace('/checkout/contact-data');
+    const continueHandler = () => {
+        props.history.replace('/checkout/contact-data');
     }
 
-    render() {
-        let burger = <Redirect to='/' />;
-        if (this.props.ings) {
-            const purchasedRedirect = this.props.redirect ? <Redirect to="/" /> : null;
-            burger = (
-                <div>
-                    {purchasedRedirect}
-                    <CheckoutSummary
-                        ingredients={this.props.ings}
-                        cancel={this.cancelHandler}
-                        continue={this.continueHandler}
-                    />
-                    <Route path={this.props.match.path + '/contact-data'} component={ContactData} />
-                </div>
-            );
-        }
-        return (
-            <React.Fragment>
-                {burger}
-            </React.Fragment>
-        )
+    let burger = <Redirect to='/' />;
+    if (props.ings) {
+        const purchasedRedirect = props.redirect ? <Redirect to="/" /> : null;
+        burger = (
+            <div>
+                {purchasedRedirect}
+                <CheckoutSummary
+                    ingredients={props.ings}
+                    cancel={cancelHandler}
+                    continue={continueHandler}
+                />
+                <Route path={props.match.path + '/contact-data'} component={ContactData} />
+            </div>
+        );
     }
+    return (
+        <React.Fragment>
+            {burger}
+        </React.Fragment>
+    )
 }
 
 const mapStateToProps = state => {
