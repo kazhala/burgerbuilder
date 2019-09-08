@@ -11,8 +11,7 @@ const Orders = props => {
 
     useEffect(() => {
         onFetchOrders(token, userId);
-        // eslint-disable-next-line
-    }, []);
+    }, [onFetchOrders, token, userId]);
 
     let orders = <Spinner />
     if (!loading) {

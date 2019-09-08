@@ -13,13 +13,13 @@ import axios from '../../axios-orders';
 const BurgerBuilder = props => {
 
     const [purchasingState, setPurchasingState] = useState(false);
+    const { ings, purchased, onInitIngredients } = props;
 
     useEffect(() => {
-        if (props.ings === null || props.purchased) {
-            props.onInitIngredients();
+        if (ings === null || purchased) {
+            onInitIngredients();
         }
-        // eslint-disable-next-line
-    }, []);
+    }, [ings, purchased, onInitIngredients]);
 
     const purchaseHandler = () => {
         if (props.isAuthenticated) {
@@ -50,22 +50,22 @@ const BurgerBuilder = props => {
 
 
     const disabledInfor = {
-        ...props.ings,
+        ...ings,
     }
     for (var key in disabledInfor) {
         disabledInfor[key] = disabledInfor[key] <= 0;
     }
     let orderSummary = null;
     let burger = props.error ? <p>Ingredients can't be loaded!</p> : <Spinner />
-    if (props.ings) {
+    if (ings) {
         burger = (
             <Aux>
-                <Burger ingredients={props.ings} />
+                <Burger ingredients={ings} />
                 <BuildControls
                     ingredientAdded={props.onIngredientAdded}
                     ingredientRemoved={props.onIngredientRemoved}
                     disabled={disabledInfor}
-                    purchaseable={updatePurchaseState(props.ings)}
+                    purchaseable={updatePurchaseState(ings)}
                     ordered={purchaseHandler}
                     price={props.price}
                     isAuth={props.isAuthenticated} />
