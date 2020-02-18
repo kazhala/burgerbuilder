@@ -9,6 +9,4 @@ Then start the application by "npm start".
 This project is built with react and redux. It is fully functional components based using the latest react.js hooks(16.9.0).
 It is connected to firebase real-time database. All the authentication is handled by firebase.
 
-THE COTRIBUTION FOR THIS PROJECT IS A BIT OFF BECAUSE I FORGOT TO SET UP LOCAL GIT EMAIL....
-
 Enjoy :)
